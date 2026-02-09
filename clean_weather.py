@@ -36,8 +36,6 @@ df["precip"] = (
 
 df["temp"] = df["temp"].astype(float)
 
-df["temp"] = (df["temp"] - 32) * 5 / 9
-
 df["humidity"] = df["humidity"].astype(float)
 df = df[df["humidity"].between(0, 100)]
 
@@ -74,3 +72,4 @@ output_path = "data/cleaned/weather_cleaned.csv"
 df.to_csv(output_path, index=False)
 
 print("✅ Cleaned CSV saved to:", output_path)
+
