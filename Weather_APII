@@ -1,0 +1,20 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from services.weather_service import fetch_current_weather, normalize_weather
+
+# Example farm (hardcoded for now)
+FARM_ID = "farm_101"
+LAT = 19.12
+LON = 73.45
+
+raw = fetch_current_weather(LAT, LON)
+clean = normalize_weather(raw, FARM_ID)
+
+print("RAW API DATA:")
+print(raw)
+
+print("\nCLEANED WEATHER DATA:")
+print(clean)
