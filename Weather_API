@@ -1,0 +1,30 @@
+import requests
+from config.config import OPENWEATHER_API_KEY
+from datetime import datetime
+
+BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
+print("Using API key:", OPENWEATHER_API_KEY[:4], "****")
+
+
+def fetch_current_weather(lat, lon):
+    params = {
+        "lat": lat,
+        "lon": lon,
+        "appid": OPENWEATHER_API_KEY,
+        "units": "metric"  # Celsius, mm
+    }
+
+    response = requests.get(BASE_URL, params=params)
+    response.raise_for_status()
+
+    data = response.json()
+    return data
+
+def normalize_weather(api_data, farm_id):
+    return {
+        "farm_id": farm_id,
+        "temperature": api_data["main"]["temp"],
+        "humidity": api_data["main"]["humidity"],
+        "precip": api_data.get("rain", {}).get("1h", 0.0),
+        "timestamp": datetime.utcnow()
+    }
